@@ -4,11 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.Timer;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,22 +14,22 @@ public class GoForward extends Command {
   /** Creates a new GoForward. */
 
   Drivetrain m_drivetrain;
-
   Double autoSpeed;
 
-  public GoForward(Drivetrain m_drivetrain) {
+  public GoForward(Drivetrain m_drivetrain, Double autoSpeed) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     this.m_drivetrain = m_drivetrain;
+    this.autoSpeed = autoSpeed;
   }
   @Override
   public void initialize() {
-    autoSpeed = 0.2;
   }
 
   @Override
   public void execute() {
-      m_drivetrain.drive(-autoSpeed, -autoSpeed, -autoSpeed, -autoSpeed);
+//    System.out.println(autoSpeed);
+    m_drivetrain.drive(-autoSpeed, -autoSpeed, -autoSpeed, -autoSpeed);
   }
 
   @Override

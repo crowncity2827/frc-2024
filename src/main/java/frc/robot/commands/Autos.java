@@ -20,10 +20,10 @@ public final class Autos {
 
   static boolean runOnce = false;
 
-  public static Command exampleAuto(Drivetrain m_drivetrain, Double time) {
+  public static Command exampleAuto(Drivetrain m_drivetrain, Double time, Double autoSpeed) {
     if (time < 3) {
-      System.out.println(time);
-      return Commands.sequence(new GoForward(m_drivetrain));
+//      System.out.println(time);
+      return Commands.sequence(new GoForward(m_drivetrain, autoSpeed));
     } else {
       if (!runOnce) {
         runOnce = true;
