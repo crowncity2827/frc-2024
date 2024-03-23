@@ -64,8 +64,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand(double time) {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_drivetrain);
+    return Autos.exampleAuto(m_drivetrain, time);
   }
 }

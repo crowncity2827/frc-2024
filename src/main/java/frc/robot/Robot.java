@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cameraserver.CameraServer;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -19,6 +21,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+
+  private Timer m_timer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +35,8 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     CameraServer.startAutomaticCapture();
     CameraServer.startAutomaticCapture();
+
+    m_timer = new Timer();
   }
 
   /**
@@ -59,7 +65,10 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_timer.reset();
+    m_timer.start();
+
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(m_timer.get());
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -69,7 +78,20 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+//    System.out.println(m_timer.get());
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(m_timer.get());
+
+    // schedule the autonomous command (example)
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
+
+//    else {
+////      System.out.println("STOP");
+//      m_autonomousCommand.cancel();
+//    }
+  }
 
   @Override
   public void teleopInit() {
