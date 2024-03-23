@@ -8,6 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.DriveWithController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.GoForward;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Bill;
 import frc.robot.subsystems.ExampleSubsystem;
