@@ -69,6 +69,14 @@ public class DriveWithController extends Command {
     m_drivetrain.drive(0, 0, 0, 0);
   }
 
+  public void forward() {
+    m_drivetrain.drive(0.2, 0.2, 0.2 , 0.2);
+  }
+
+  public void stop() {
+    m_drivetrain.drive(0, 0, 0, 0);
+  }
+
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
