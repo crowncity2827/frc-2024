@@ -13,11 +13,11 @@ import frc.robot.subsystems.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class GoForward extends SequentialCommandGroup {
   /** Creates a new GoForward. */
-  Drivetrain m_drivetrain;
-  public GoForward() {
+
+  public GoForward(Drivetrain m_drivetrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    m_drivetrain = new Drivetrain();
+    this.m_drivetrain = m_drivetrain;
     addCommands(Commands.runOnce(()->{m_drivetrain.drive(0.2, 0.2, 0.2, 0.2);}), Commands.waitSeconds(2), Commands.runOnce(()->{m_drivetrain.drive(0, 0, 0, 0);}));
   }
 }
