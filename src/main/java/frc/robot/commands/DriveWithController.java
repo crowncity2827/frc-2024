@@ -5,26 +5,47 @@
 package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Drivetrain;
+
+import frc.robot.subsystems.Bill;
 
 public class DriveWithController extends Command {
   /** Creates a new DriveWithController. */
   DoubleSupplier m_vertical, m_horizontal, m_rotational;
+  Trigger m_leftbumper, m_rightbumper;
   Drivetrain m_drivetrain;
-  public DriveWithController(DoubleSupplier m_vertical, DoubleSupplier m_horizontal, DoubleSupplier m_rotational, Drivetrain m_drivetrain) {
+  Bill m_Bill;
+  public DriveWithController(DoubleSupplier m_vertical, DoubleSupplier m_horizontal, DoubleSupplier m_rotational, CommandXboxController m_driverController, Drivetrain m_drivetrain, Bill m_Bill) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_vertical = m_vertical;
     this.m_horizontal = m_horizontal;
     this.m_rotational = m_rotational;
     this.m_drivetrain = m_drivetrain;
+
+
+    this.m_leftbumper = m_driverController.leftBumper();
+    this.m_rightbumper = m_driverController.rightBumper();
+    this.m_Bill = m_Bill;
+
     addRequirements(m_drivetrain);
+    addRequirements(m_Bill);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_leftbumper.onFalse(Commands.runOnce(()->{m_Bill.stop();}));
+    m_rightbumper.onFalse(Commands.runOnce(()->{m_Bill.stop();}));
+    m_leftbumper.onTrue(Commands.runOnce(()->{m_Bill.reverse(1.0);}));
+    m_rightbumper.onTrue(Commands.runOnce(()->{m_Bill.forward(1.0);}));
+    
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
